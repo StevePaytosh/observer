@@ -19,9 +19,13 @@
  * 
  * 
  * */
+#include "gpiotest.h"
 
 
-int main()
+
+ int main (void)
 {
-	
+  run();
 }
+
+
