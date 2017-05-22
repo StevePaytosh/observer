@@ -20,6 +20,7 @@
  * 
  * */
 #include "gpiotest.h"
+#include "seg_display.h"
 
 
 
