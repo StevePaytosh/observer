@@ -25,7 +25,7 @@
 
  int main (void)
 {
-  run();
+  run2();
 }
 
 

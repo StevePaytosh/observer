@@ -49,3 +49,38 @@ printf ("Raspberry Pi blink\n") ;
  printf("end of blink program\n");
  
 }
+
+int readTemp()
+{
+	return 0;
+}
+
+void run2()
+{
+	//same test as run but using a different library
+	
+	printf ("Raspberry Pi blink 2\n") ;
+
+	//BCM 25
+	GPIOClass* gpio25 = new GPIOClass("25"); //create new GPIO object to be attached to  GPIO
+	gpio25->export_gpio(); //export GPIO
+	gpio25->setdir_gpio("out"); // GPIO25 set to input
+  //wiringPiSetup () ;
+  //pinMode (LED, OUTPUT) ;
+  
+  for (;;)
+  {
+    //digitalWrite (LED, HIGH) ;	// On
+     gpio25->setval_gpio("1");
+    delay (500) ;		// mS
+    //digitalWrite (LED, LOW) ;	// Off
+      gpio25->setval_gpio("0");
+    delay (500) ;
+   
+  }
+ 
+ printf("end of blink 2 program\n");
+ 
+	
+}
+

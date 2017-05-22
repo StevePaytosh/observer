@@ -1,3 +1,3 @@
+g++ observer.cpp  gpiotest.cpp GPIOClass.cpp -o observer -lwiringPi 
 g++ observer.cpp  gpiotest.cpp -o observer -lwiringPi
-
 g++ observer.cpp -o observer -lwiringPi
