@@ -12,9 +12,11 @@ int compare(seg_display *a);
 int set(std::string a, int b);
 int set(int a, int b);
 int init(std::string tl, std::string t, std::string tr, std::string br, std::string b, std::string bl, std::string m, std::string d);
-int assign(int led_num, std::string pin_num);
+int assign(int led_num, int on);
 int getCurrentState(int pin_num);
 int getCurrentState(std::string pin_name);
+int turn_on(int a);
+int turn_off(int a);
 
 private:
 GPIOClass* TOP_LEFT;

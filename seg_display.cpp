@@ -63,3 +63,33 @@ GPIOClass* getLEDByNumber(int num)
 	}
 	
 }
+
+int assign (int num, int value)
+{
+	GPIOClass *reff = getLEDByNumber(num);
+	
+	if(reff != NULL)
+	{
+		if(value)
+			{
+				reff->setval_gpio("1");
+				return 1;
+			}
+		else
+			{
+				reff->setval_gpio("0");
+				return 1;
+			}
+	}
+	return 0;
+	
+}
+
+int turn_on(int a)
+{
+	return assign(a,1);
+}
+int turn_off(int a)
+{
+	return assign(a,0);
+}
