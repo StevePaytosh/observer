@@ -17,6 +17,7 @@ int getCurrentState(int pin_num);
 int getCurrentState(std::string pin_name);
 int turn_on(int a);
 int turn_off(int a);
+int display(int a);
 
 private:
 GPIOClass* TOP_LEFT;
@@ -30,6 +31,17 @@ GPIOClass* DOT;
 int number;
 std::string name;
 GPIOClass* getLEDByNumber(int num);
+void set_zero(int sans = 0);
+void set_one(int sans = 0);
+void set_two(int sans =0);
+void set_three(int sans=0);
+void set_four(int sans=0);
+void set_five(int sans=0);
+void set_six(int sans=0);
+void set_seven(int sans=0);
+void set_eight(int sans=0);
+void set_nine(int sans=0);
+
 
 
 };

@@ -26,7 +26,12 @@
 
  int main (void)
 {
-  run2();
+	runNumberTest();
+	//testOdds();
+	//blinkSegment();
+	//runNumberTest();
+  //run2();
+  //run();
 }
 
 

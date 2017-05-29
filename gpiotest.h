@@ -7,3 +7,6 @@ int readTemp();
 int readHumidity();
 
 void run2();
+void runNumberTest();
+void blinkSegment();
+void testOdds();

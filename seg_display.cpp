@@ -44,7 +44,7 @@ seg_display::seg_display(std::string tl, std::string t, std::string tr, std::str
 	 
 }
 
-GPIOClass* getLEDByNumber(int num)
+GPIOClass* seg_display::getLEDByNumber(int num)
 {
 	//retrieve the LED by position number
 	
@@ -64,7 +64,7 @@ GPIOClass* getLEDByNumber(int num)
 	
 }
 
-int assign (int num, int value)
+int seg_display::assign (int num, int value)
 {
 	GPIOClass *reff = getLEDByNumber(num);
 	
@@ -85,11 +85,95 @@ int assign (int num, int value)
 	
 }
 
-int turn_on(int a)
+int seg_display::turn_on(int a)
 {
 	return assign(a,1);
 }
-int turn_off(int a)
+int seg_display::turn_off(int a)
 {
 	return assign(a,0);
+}
+
+int seg_display::display(int a)
+{
+	//displays the given number on the segment_display
+	
+	if(a>10 || a<0)
+		return 0; //invalid number return false
+		
+
+	turn_off(1);
+	turn_off(2);
+	turn_off(3);
+	turn_off(4);
+	turn_off(5);
+	turn_off(6);
+	turn_off(7);
+	turn_off(8);
+	
+	switch(a)
+	{
+		case 0: set_zero(); return 1; break;
+		case 1: set_one(); return 1; break;
+		case 2: set_two(); return 1; break;
+		case 3: set_three(); return 1; break;
+		case 4: set_four(); return 1; break;
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		default: return 0;
+	}
+	
+}
+
+void seg_display::set_zero(int sans)
+{
+	//writes out "0" to the segment display
+	//top, top right, bottom right, bottom, bottom left, top left
+	turn_on(1);
+	turn_on(2);
+	turn_on(3);
+	turn_on(4);
+	turn_on(5);
+	turn_on(6);
+}
+
+void seg_display::set_one(int sans)
+{
+	//writes out "1" to the segment display
+	turn_on(3);
+	turn_on(4);
+}
+
+void seg_display::set_two(int sans)
+{
+	//writes out "2" to the segment display
+	turn_on(2);
+	turn_on(3);
+	turn_on(7);
+	turn_on(5);
+	turn_on(6);
+}
+
+void seg_display::set_three(int sans)
+{
+	//writes out "3" to the segment display
+	//top,top right, bottom right, bottom, middle
+	turn_on(2);
+	turn_on(3);
+	turn_on(4);
+	turn_on(5);
+	turn_on(7);	
+}
+
+void seg_display::set_four(int sans)
+{
+	//writes out "4" to the segment display
+	turn_on(1);
+	turn_on(3);
+	turn_on(4);
+	turn_on(7);
+	
 }
