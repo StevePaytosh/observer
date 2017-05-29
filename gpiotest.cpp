@@ -89,7 +89,7 @@ void runNumberTest()
 {
 	//sets up an led, and cyles between 0 and 3 on the display
 	//config: m=3, tl = 27, t=15, tr=17, dot=18, br=14, b=4, bl=2
-	seg_display *seg1 = new seg_display("27","15","17","14","4","2","3","18");
+	seg_display *seg1 = new seg_display("27","15","17","14","22","2","3","18");
 	
 	for(;;)
 	{
@@ -107,7 +107,7 @@ void runNumberTest()
 		delay(500);
 		seg1-> display(6);
 		delay(500);
-		seg1-> display(7);
+		seg1-> display(7,1);
 		delay(500);
 		seg1-> display(8);
 		delay(500);
