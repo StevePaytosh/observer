@@ -94,7 +94,7 @@ int seg_display::turn_off(int a)
 	return assign(a,0);
 }
 
-int seg_display::display(int a)
+int seg_display::display(int num,int font)
 {
 	//displays the given number on the segment_display
 	
@@ -104,7 +104,7 @@ int seg_display::display(int a)
 
 	clear_all();
 	
-	switch(a)
+	switch(num)
 	{
 		case 0: set_zero(); return 1; break;
 		case 1: set_one(); return 1; break;
@@ -113,9 +113,9 @@ int seg_display::display(int a)
 		case 4: set_four(); return 1; break;
 		case 5: set_five(); return 1; break;
 		case 6: set_six(); return 1; break;
-		case 7: set_seven(); return 1; break;
+		case 7: set_seven(font); return 1; break;
 		case 8: set_eight(); return 1; break;
-		case 9: set_nine(); return 1; break;
+		case 9: set_nine(font); return 1; break;
 		default: return 0;
 	}
 	
@@ -203,7 +203,7 @@ void seg_display::set_seven(int font)
 	turn_on(4);
 	
 	//if the sans flag is on, a seriff will print on the digit
-	if(sans)
+	if(font)
 		turn_on(1);
 	
 }
@@ -230,7 +230,7 @@ void seg_display::set_nine(int font)
 	turn_on(7);
 	
 	//if sans flag is on, a seriff will print on the digit
-	if(sans)
+	if(font)
 		turn_on(5);
 }
 
@@ -259,48 +259,48 @@ void seg_display::clear_all()
 	turn_off(8);
 }
 
-int compare(seg_display *a)
-{
-	//compare return 1 if this segment is "greater than" the a gven segment display (parameter)
-	//if they are equal return 0 and -1 for less than.
-	//First compare off of the unit number, if they are equal than by unit name. No name/number are treated as "less than" any other name/number
+//int compare(seg_display *a)
+//{
+	////compare return 1 if this segment is "greater than" the a gven segment display (parameter)
+	////if they are equal return 0 and -1 for less than.
+	////First compare off of the unit number, if they are equal than by unit name. No name/number are treated as "less than" any other name/number
 	
-	if(this.number != null || a.number != null)
-	{
-		//if one of the segments has a number, we can compare
-		if(this.number == null && a.number != null)
-			return -1;
-		else if(a.number == null && this.number != null)
-			return 1;
-		else
-		{
-			if(this.number > a.number)
-			return 1;
-			else if (this. number < a.number)
-			return -1;
-			else
-			return 0;
-		}
-	}
+	//if(this.number != null || a.number != null)
+	//{
+		////if one of the segments has a number, we can compare
+		//if(this.number == null && a.number != null)
+			//return -1;
+		//else if(a.number == null && this.number != null)
+			//return 1;
+		//else
+		//{
+			//if(this.number > a.number)
+			//return 1;
+			//else if (this. number < a.number)
+			//return -1;
+			//else
+			//return 0;
+		//}
+	//}
 	
-	//if we could not compare on numbers, we must compare on name
+	////if we could not compare on numbers, we must compare on name
 	
-	if(this.name != null && a.name != null )
-	{
-		//if of the segments has a name, we can compare
-		if(this.name == null && a.name != null)
-			return -1;
-		else if(a.name == null && this.name != null)
-			return 1;
-		else
-		{
-			return strcmp(this.name, a.name);
-		}
+	//if(this.name != null && a.name != null )
+	//{
+		////if of the segments has a name, we can compare
+		//if(this.name == null && a.name != null)
+			//return -1;
+		//else if(a.name == null && this.name != null)
+			//return 1;
+		//else
+		//{
+			//return strcmp(this.name, a.name);
+		//}
 		
-	}
-	else
-	{
-			return 0;
-	}
+	//}
+	//else
+	//{
+			//return 0;
+	//}
 	
-}
+//}
