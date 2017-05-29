@@ -98,7 +98,7 @@ int seg_display::display(int num,int font)
 {
 	//displays the given number on the segment_display
 	
-	if(a>10 || a<0)
+	if(num>10 || num<0)
 		return 0; //invalid number return false
 		
 

@@ -18,7 +18,7 @@ int getCurrentState(int pin_num);
 int getCurrentState(std::string pin_name);
 int turn_on(int a);
 int turn_off(int a);
-int display(int a);
+int display(int num, int font=0);
 void clear_all();
 void set_all();
 

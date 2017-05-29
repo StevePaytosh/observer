@@ -120,7 +120,7 @@ void runNumberTest()
 void blinkSegment()
 {
 	printf("\nsegment blinking test:\n");
-	seg_display *seg1 = new seg_display("27","3","4","14","15","2","17","18");
+	seg_display *seg1 = new seg_display("22","3","4","14","15","2","17","18");
 	
 		for(;;)
 	{
