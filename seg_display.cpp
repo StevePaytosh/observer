@@ -102,14 +102,7 @@ int seg_display::display(int a)
 		return 0; //invalid number return false
 		
 
-	turn_off(1);
-	turn_off(2);
-	turn_off(3);
-	turn_off(4);
-	turn_off(5);
-	turn_off(6);
-	turn_off(7);
-	turn_off(8);
+	clear_all();
 	
 	switch(a)
 	{
@@ -118,11 +111,11 @@ int seg_display::display(int a)
 		case 2: set_two(); return 1; break;
 		case 3: set_three(); return 1; break;
 		case 4: set_four(); return 1; break;
-		case 5:
-		case 6:
-		case 7:
-		case 8:
-		case 9:
+		case 5: set_five(); return 1; break;
+		case 6: set_six(); return 1; break;
+		case 7: set_seven(); return 1; break;
+		case 8: set_eight(); return 1; break;
+		case 9: set_nine(); return 1; break;
 		default: return 0;
 	}
 	
@@ -176,4 +169,92 @@ void seg_display::set_four(int sans)
 	turn_on(4);
 	turn_on(7);
 	
+}
+
+void seg_display::set_five(int sans)
+{
+	//writes out "5" to the segment display
+	turn_on(1);
+	turn_on(2);
+	turn_on(4);
+	turn_on(5);
+	turn_on(7);
+	
+}
+
+void seg_display::set_six(int sans)
+{
+	//writes out "6" to the segment display
+	turn_on(1);
+	turn_on(2);
+	turn_on(4);
+	turn_on(5);
+	turn_on(6);
+	turn_on(7);
+	
+	
+}
+
+void seg_display::set_seven(int sans)
+{
+	//writes out "7" to the segment display
+	turn_on(2);
+	turn_on(3);
+	turn_on(4);
+	
+	//if the sans flag is on, a seriff will print on the digit
+	if(sans)
+		turn_on(1);
+	
+}
+
+void seg_display::set_eight(int sans)
+{
+	//writes out "8" to the segment display
+	turn_on(1);
+	turn_on(2);
+	turn_on(3);
+	turn_on(4);
+	turn_on(5);
+	turn_on(6);
+	turn_on(7);
+}
+
+void seg_display::set_nine(int sans)
+{
+	//writes out "9" to the segment display
+		turn_on(1);
+	turn_on(2);
+	turn_on(3);
+	turn_on(4);
+	turn_on(7);
+	
+	//if sans flag is on, a seriff will print on the digit
+	if(sans)
+		turn_on(5);
+}
+
+void seg_display::set_all()
+{
+	//turns on all LEDs in the segment
+	turn_on(1);
+	turn_on(2);
+	turn_on(3);
+	turn_on(4);
+	turn_on(5);
+	turn_on(6);
+	turn_on(7);
+	turn_on(8);
+}
+
+void seg_display::clear_all()
+{
+	turn_off(1);
+	turn_off(2);
+	turn_off(3);
+	turn_off(4);
+	turn_off(5);
+	turn_off(6);
+	turn_off(7);
+	turn_off(8);
 }

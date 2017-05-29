@@ -18,6 +18,8 @@ int getCurrentState(std::string pin_name);
 int turn_on(int a);
 int turn_off(int a);
 int display(int a);
+void clear_all();
+void set_all();
 
 private:
 GPIOClass* TOP_LEFT;
@@ -41,7 +43,6 @@ void set_six(int sans=0);
 void set_seven(int sans=0);
 void set_eight(int sans=0);
 void set_nine(int sans=0);
-
 
 
 };

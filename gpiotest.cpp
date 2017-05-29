@@ -103,6 +103,16 @@ void runNumberTest()
 		delay(500);
 		seg1-> display(4);
 		delay(500);
+		seg1-> display(5);
+		delay(500);
+		seg1-> display(6);
+		delay(500);
+		seg1-> display(7);
+		delay(500);
+		seg1-> display(8);
+		delay(500);
+		seg1-> display(9);
+		delay(500);
 	}
 	
 }
