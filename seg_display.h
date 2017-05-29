@@ -6,6 +6,7 @@ class seg_display
 public:
 seg_display();
 seg_display(std::string tl, std::string t, std::string tr, std::string br, std::string b, std::string bl, std::string m, std::string d);
+seg_display(int tl, int t, int tr, int br, int b, int bl, int m, int d);
 void setUnitName(std::string n);
 void setUnitNumber(int n);
 int compare(seg_display *a);
@@ -33,16 +34,16 @@ GPIOClass* DOT;
 int number;
 std::string name;
 GPIOClass* getLEDByNumber(int num);
-void set_zero(int sans = 0);
-void set_one(int sans = 0);
-void set_two(int sans =0);
-void set_three(int sans=0);
-void set_four(int sans=0);
-void set_five(int sans=0);
-void set_six(int sans=0);
-void set_seven(int sans=0);
-void set_eight(int sans=0);
-void set_nine(int sans=0);
+void set_zero(int font = 0);
+void set_one(int font = 0);
+void set_two(int font =0);
+void set_three(int font=0);
+void set_four(int font=0);
+void set_five(int font=0);
+void set_six(int font=0);
+void set_seven(int font=0);
+void set_eight(int font=0);
+void set_nine(int font=0);
 
 
 };

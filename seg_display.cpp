@@ -121,7 +121,7 @@ int seg_display::display(int a)
 	
 }
 
-void seg_display::set_zero(int sans)
+void seg_display::set_zero(int font)
 {
 	//writes out "0" to the segment display
 	//top, top right, bottom right, bottom, bottom left, top left
@@ -133,14 +133,14 @@ void seg_display::set_zero(int sans)
 	turn_on(6);
 }
 
-void seg_display::set_one(int sans)
+void seg_display::set_one(int font)
 {
 	//writes out "1" to the segment display
 	turn_on(3);
 	turn_on(4);
 }
 
-void seg_display::set_two(int sans)
+void seg_display::set_two(int font)
 {
 	//writes out "2" to the segment display
 	turn_on(2);
@@ -150,7 +150,7 @@ void seg_display::set_two(int sans)
 	turn_on(6);
 }
 
-void seg_display::set_three(int sans)
+void seg_display::set_three(int font)
 {
 	//writes out "3" to the segment display
 	//top,top right, bottom right, bottom, middle
@@ -161,7 +161,7 @@ void seg_display::set_three(int sans)
 	turn_on(7);	
 }
 
-void seg_display::set_four(int sans)
+void seg_display::set_four(int font)
 {
 	//writes out "4" to the segment display
 	turn_on(1);
@@ -171,7 +171,7 @@ void seg_display::set_four(int sans)
 	
 }
 
-void seg_display::set_five(int sans)
+void seg_display::set_five(int font)
 {
 	//writes out "5" to the segment display
 	turn_on(1);
@@ -182,7 +182,7 @@ void seg_display::set_five(int sans)
 	
 }
 
-void seg_display::set_six(int sans)
+void seg_display::set_six(int font)
 {
 	//writes out "6" to the segment display
 	turn_on(1);
@@ -195,7 +195,7 @@ void seg_display::set_six(int sans)
 	
 }
 
-void seg_display::set_seven(int sans)
+void seg_display::set_seven(int font)
 {
 	//writes out "7" to the segment display
 	turn_on(2);
@@ -208,7 +208,7 @@ void seg_display::set_seven(int sans)
 	
 }
 
-void seg_display::set_eight(int sans)
+void seg_display::set_eight(int font)
 {
 	//writes out "8" to the segment display
 	turn_on(1);
@@ -220,7 +220,7 @@ void seg_display::set_eight(int sans)
 	turn_on(7);
 }
 
-void seg_display::set_nine(int sans)
+void seg_display::set_nine(int font)
 {
 	//writes out "9" to the segment display
 		turn_on(1);
@@ -257,4 +257,50 @@ void seg_display::clear_all()
 	turn_off(6);
 	turn_off(7);
 	turn_off(8);
+}
+
+int compare(seg_display *a)
+{
+	//compare return 1 if this segment is "greater than" the a gven segment display (parameter)
+	//if they are equal return 0 and -1 for less than.
+	//First compare off of the unit number, if they are equal than by unit name. No name/number are treated as "less than" any other name/number
+	
+	if(this.number != null || a.number != null)
+	{
+		//if one of the segments has a number, we can compare
+		if(this.number == null && a.number != null)
+			return -1;
+		else if(a.number == null && this.number != null)
+			return 1;
+		else
+		{
+			if(this.number > a.number)
+			return 1;
+			else if (this. number < a.number)
+			return -1;
+			else
+			return 0;
+		}
+	}
+	
+	//if we could not compare on numbers, we must compare on name
+	
+	if(this.name != null && a.name != null )
+	{
+		//if of the segments has a name, we can compare
+		if(this.name == null && a.name != null)
+			return -1;
+		else if(a.name == null && this.name != null)
+			return 1;
+		else
+		{
+			return strcmp(this.name, a.name);
+		}
+		
+	}
+	else
+	{
+			return 0;
+	}
+	
 }
