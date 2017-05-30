@@ -1,5 +1,6 @@
 #include "gpiotest.h"
 #include "seg_display.h"
+#include "temp_sensor.h"
 #define	LED 2
 
 
@@ -174,3 +175,25 @@ void testOdds()
  printf("end of blink 2 program\n");
 }
 
+void tempTest()
+{
+	
+	temp_sensor *ts= new temp_sensor();
+	
+	//ts->dht11_read_val();
+	while(1)
+	{
+		int temp=ts->read();
+		delay(3000); 
+	}
+	//printf("sensor returned %d on read\n",temp);
+	//~ts();
+	//printf("Interfacing Temperature and Humidity Sensor (DHT11) With Raspberry Pi\n");  
+  //if(wiringPiSetup()==-1)  
+    //return; 
+  //while(1)  
+  //{  
+     //dht11_read_val();  
+     //delay(3000);  
+  //} 
+}

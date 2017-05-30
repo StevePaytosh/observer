@@ -1,3 +1,5 @@
+g++ observer.cpp  gpiotest.cpp GPIOClass.cpp seg_display.cpp temp_sensor.cpp -o observer -lwiringPi 
+g++ observer.cpp  gpiotest.cpp GPIOClass.cpp seg_display.cpp mp.rh.sensor.cpp -o observer -lwiringPi 
 g++ observer.cpp  gpiotest.cpp GPIOClass.cpp seg_display.cpp -o observer -lwiringPi 
 g++ observer.cpp  gpiotest.cpp GPIOClass.cpp -o observer -lwiringPi 
 g++ observer.cpp  gpiotest.cpp -o observer -lwiringPi

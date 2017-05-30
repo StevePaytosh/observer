@@ -10,3 +10,4 @@ void run2();
 void runNumberTest();
 void blinkSegment();
 void testOdds();
+void tempTest();
