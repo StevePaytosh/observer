@@ -21,18 +21,34 @@
  * */
 #include "gpiotest.h"
 #include "seg_display.h"
-
+#include "temp_sensor.h"
 
 
  int main (void)
 {
-	tempTest();
-	//runNumberTest();
-	//testOdds();
-	//blinkSegment();
-	//runNumberTest();
-  //run2();
-  //run();
+	seg_display *right= new seg_display("27","15","17","14","22","2","3","18");
+	seg_display *left = new seg_display(); //this segment not yet wired
+	temp_sensor *sensor = new temp_sensor();
+	
+	int temp=sensor->getTempCelcius();
+	int humidity = sensor -> getHumidity();
+	int res=0;
+	
+	printf("test: temp= %d",temp);
+	while(1)
+	{
+		if(sensor->read())
+		{
+			temp=sensor->getTempCelcius();
+			humidity = sensor-> getHumidity();
+			
+			//left->display(temp/10);
+			right->display(temp%10);//display the lower portion of the temperature
+		}
+		
+		delay(3000);
+			
+	}
 }
 
 

@@ -3,13 +3,27 @@
 temp_sensor::temp_sensor()
 {
 	wiringPiSetup();
+	temp_celcius=0;
+	humidity=0;
 	DHT11PIN=7; //default value
+	
+	int res=0;
+	
+	while(!res)
+		res=read();
 }  
 
 temp_sensor::temp_sensor(int pin)
 {
 	wiringPiSetup();
+	temp_celcius=0;
+	humidity=0;
 	DHT11PIN=pin;
+	
+	int res=0;
+		
+	while(!res)
+		res=read();
 }
 
 temp_sensor::~temp_sensor()
@@ -17,6 +31,15 @@ temp_sensor::~temp_sensor()
 	
 }
 
+float temp_sensor::getTempCelcius()
+{
+	return temp_celcius;
+}
+
+float temp_sensor::getHumidity()
+{
+	return humidity;
+}
 int temp_sensor::read()
 {
   //initialization
