@@ -15,6 +15,7 @@ temp_sensor(int pin);
 void set_pin();
 int read();
 float getTempCelcius();
+float getTempFarenheight();
 float getHumidity();
 
 private:

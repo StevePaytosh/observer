@@ -36,6 +36,12 @@ float temp_sensor::getTempCelcius()
 	return temp_celcius;
 }
 
+float temp_sensor::getTempFarenheight()
+{
+	// temp[farenheight]= temp[celcius] (9/5) + 32
+	return temp_celcius*9./5.+32;  
+}
+
 float temp_sensor::getHumidity()
 {
 	return humidity;
