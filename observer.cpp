@@ -29,7 +29,7 @@ void flashSegment(seg_display *a);
  int main (void)
 {
 	seg_display *right= new seg_display("27","15","17","14","22","2","3","18");
-	seg_display *left = new seg_display("10","25","23","8","7","11","9","5"); //this segment not yet wired
+	seg_display *left = new seg_display("10","24","23","8","7","11","9","5"); 
 	temp_sensor *sensor = new temp_sensor();
 	
 	flashSegment(left);
@@ -38,7 +38,7 @@ void flashSegment(seg_display *a);
 	int temp=sensor->getTempCelcius();
 	int humidity = sensor -> getHumidity();
 	int res=0;
-	int useImperialUnits = 0;
+	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
 	
 	printf("test: temp= %d",temp);
