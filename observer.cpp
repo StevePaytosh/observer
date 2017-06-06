@@ -35,6 +35,15 @@ void flashSegment(seg_display *a);
 	temp_sensor *sensor = new temp_sensor();
 	tact_switch *tc = new tact_switch("26",1);
 	
+	GPIOClass *red=new GPIOClass("21");
+	GPIOClass *blue= new GPIOClass("20");
+	
+	red->export_gpio(); 
+	red->setdir_gpio("out");
+	
+	blue->export_gpio(); 
+	blue->setdir_gpio("out");
+	
 	//flashSegment(left);
 	//flashSegment(right);
 	
@@ -54,6 +63,19 @@ void flashSegment(seg_display *a);
 			humidity = sensor-> getHumidity();
 			
 		useImperialUnits=tc->getState();
+		
+		if(useImperialUnits)
+		{
+			//set red gumdrop, kill blue
+			red->setval_gpio("1");
+			blue->setval_gpio("0");
+			 
+		}
+		else
+		{
+			red->setval_gpio("0");
+			blue->setval_gpio("1");
+		}
 		
 	//	std::cout<<"\ngpio input = "<<in<<"\n";
 	//	std::cout<<"\nuse imperial = "<<useImperialUnits<<"\n";
