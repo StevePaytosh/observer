@@ -22,6 +22,8 @@
 #include "gpiotest.h"
 #include "seg_display.h"
 #include "temp_sensor.h"
+#include "tact_switch.h"
+#include <iostream>
 void flashSegment(seg_display *a);
 
 
@@ -31,17 +33,19 @@ void flashSegment(seg_display *a);
 	seg_display *right= new seg_display("27","15","17","14","22","2","3","18");
 	seg_display *left = new seg_display("10","24","23","8","7","11","9","5"); 
 	temp_sensor *sensor = new temp_sensor();
+	tact_switch *tc = new tact_switch("26",1);
 	
-	flashSegment(left);
-	flashSegment(right);
+	//flashSegment(left);
+	//flashSegment(right);
 	
 	int temp=sensor->getTempCelcius();
 	int humidity = sensor -> getHumidity();
 	int res=0;
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
+	std::string in="";
 	
-	printf("test: temp= %d",temp);
+	//printf("test: temp= %d",temp);
 	while(1)
 	{
 		if(sensor->read())
@@ -49,6 +53,10 @@ void flashSegment(seg_display *a);
 			temp=sensor->getTempCelcius();
 			humidity = sensor-> getHumidity();
 			
+		useImperialUnits=tc->getState();
+		
+	//	std::cout<<"\ngpio input = "<<in<<"\n";
+	//	std::cout<<"\nuse imperial = "<<useImperialUnits<<"\n";
 		if(!readHumidity)
 		{
 			if(useImperialUnits)
@@ -72,8 +80,6 @@ void flashSegment(seg_display *a);
 		}	
 		
 		}
-		
-		delay(3000);
 			
 	}
 }
