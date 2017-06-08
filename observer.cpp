@@ -23,6 +23,7 @@
 #include "seg_display.h"
 #include "temp_sensor.h"
 #include "tact_switch.h"
+#include "gumdrop.h"
 #include <iostream>
 void flashSegment(seg_display *a);
 
@@ -34,18 +35,11 @@ void flashSegment(seg_display *a);
 	seg_display *left = new seg_display("10","24","23","8","7","11","9","5"); 
 	temp_sensor *sensor = new temp_sensor();
 	tact_switch *tc = new tact_switch("26",1);
-	
-	GPIOClass *red=new GPIOClass("21");
-	GPIOClass *blue= new GPIOClass("20");
-	
-	red->export_gpio(); 
-	red->setdir_gpio("out");
-	
-	blue->export_gpio(); 
-	blue->setdir_gpio("out");
-	
-	//flashSegment(left);
-	//flashSegment(right);
+	gumdrop *red= new gumdrop("20");
+	gumdrop *blue = new gumdrop("21");
+
+	flashSegment(left);
+	flashSegment(right);
 	
 	int temp=sensor->getTempCelcius();
 	int humidity = sensor -> getHumidity();
@@ -67,14 +61,14 @@ void flashSegment(seg_display *a);
 		if(useImperialUnits)
 		{
 			//set red gumdrop, kill blue
-			red->setval_gpio("1");
-			blue->setval_gpio("0");
+			red->turn_on();
+			blue->turn_off();
 			 
 		}
 		else
 		{
-			red->setval_gpio("0");
-			blue->setval_gpio("1");
+			red->turn_off();
+			blue->turn_on();
 		}
 		
 	//	std::cout<<"\ngpio input = "<<in<<"\n";

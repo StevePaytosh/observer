@@ -1,5 +1,6 @@
 #include "GPIOClass.h"
 #include <string>
+#include <iostream>
 
 class tact_switch
 {

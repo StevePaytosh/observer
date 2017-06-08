@@ -13,7 +13,7 @@ int tact_switch::getState()
 {
 	std::string str_state="";
 	 tc->getval_gpio(str_state);
-	return	str_state.compare("1")?1:0;
+	return	str_state.compare("1")?0:1;
 	
 }
 
