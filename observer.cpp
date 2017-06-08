@@ -26,6 +26,7 @@
 #include "gumdrop.h"
 #include <iostream>
 void flashSegment(seg_display *a);
+void flashGumdrop(gumdrop *a);
 
 
 
@@ -38,8 +39,11 @@ void flashSegment(seg_display *a);
 	gumdrop *red= new gumdrop("20");
 	gumdrop *blue = new gumdrop("21");
 
+	//run diagnostic on LEDs
 	flashSegment(left);
 	flashSegment(right);
+	flashGumdrop(red);
+	flashGumdrop(blue);
 	
 	int temp=sensor->getTempCelcius();
 	int humidity = sensor -> getHumidity();
@@ -103,15 +107,30 @@ void flashSegment(seg_display *a);
 void flashSegment(seg_display *a)
 {
 	int i=0;
-	for(;i<4; i++)
+	for(;i<2; i++)
 	{
 		a->clear_all();
-		delay(1000);
+		delay(700);
 		a->set_all();
-		delay(1000);
+		delay(700);
 	}
 	
 	a->clear_all();
 }
 
+void flashGumdrop(gumdrop *a)
+{
+	int i=0;
+	for(;i<2;i++)
+	{
+		a->turn_off();
+		delay(700);
+		a->turn_on();
+		delay(700);
+		
+	}
+	
+	a->turn_off();
+	
+}
 
