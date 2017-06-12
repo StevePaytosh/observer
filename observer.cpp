@@ -38,7 +38,9 @@ void flashGumdrop(gumdrop *a);
 	tact_switch *tc = new tact_switch("26",1);
 	gumdrop *red= new gumdrop("20");
 	gumdrop *blue = new gumdrop("21");
-
+	int switch_lock=0; //indicates if the switch has hit zero since it was read as high
+	int display_state=0; //determines what data should be displayed
+	
 	//run diagnostic on LEDs
 	flashSegment(left);
 	flashSegment(right);
@@ -55,47 +57,65 @@ void flashGumdrop(gumdrop *a);
 	//printf("test: temp= %d",temp);
 	while(1)
 	{
+		
+		if(tc->getState() && !switch_lock)
+		{
+				display_state++;
+				switch_lock=1;
+					
+				
+			if(display_state>2 || display_state<0)
+				display_state=0;
+				
+			switch(display_state)
+			{
+				case 0: useImperialUnits=1; readHumidity=0; break;
+				case 1: useImperialUnits=0; readHumidity=0; break;
+				case 2: useImperialUnits=0; readHumidity=1; break;
+			}
+		
+		}
+		else if(!tc->getState())
+			switch_lock=0;
+			
+				
+		
 		if(sensor->read())
 		{
 			temp=sensor->getTempCelcius();
 			humidity = sensor-> getHumidity();
 			
-		useImperialUnits=tc->getState();
 		
-		if(useImperialUnits)
-		{
-			//set red gumdrop, kill blue
-			red->turn_on();
-			blue->turn_off();
-			 
-		}
-		else
-		{
-			red->turn_off();
-			blue->turn_on();
-		}
-		
-	//	std::cout<<"\ngpio input = "<<in<<"\n";
-	//	std::cout<<"\nuse imperial = "<<useImperialUnits<<"\n";
+	
 		if(!readHumidity)
 		{
+			//display temperature
 			if(useImperialUnits)
 			{
 				temp=sensor->getTempFarenheight();
 				left->display(temp/10);
 				right->display(temp%10);//display the lower portion of the temperature
+				
+				red->turn_on();
+				blue->turn_off();
 			}
 			else
 			{
 				left->display(temp/10);
 				right->display(temp%10);//display the lower portion of the temperature
+				
+				red->turn_off();
+				blue->turn_on();
 			}
 		}
 		else
 		{
-				humidity = sensor->getHumidity();
-				left -> display(humidity/10);
-				right -> display (humidity%10);
+			humidity = sensor->getHumidity();
+			left -> display(humidity/10);
+			right -> display (humidity%10);
+				
+			red->turn_on();
+			blue->turn_on();	
 			
 		}	
 		
