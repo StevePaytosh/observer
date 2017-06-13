@@ -56,8 +56,9 @@ void flashGumdrop(gumdrop *a);
 	int res=0;
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
-	std::string in="";
+
 	
+	dc->store(temp,humidity);
 	//printf("test: temp= %d",temp);
 	while(1)
 	{

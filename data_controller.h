@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <ctime>
 
 class data_controller
 {
@@ -9,14 +10,14 @@ class data_controller
 	struct data
 	{
 		
-		int sample_time;
+		time_t sample_time;
 		float temp;
 		float humidity;
 		
 	};
 	data_controller(std::string a);
 	std::string file_path;
-	int store(data *d);
+	int store(float temp, float humidity);
 	
 	private:
 	std::ofstream out;
