@@ -25,6 +25,8 @@
 #include "tact_switch.h"
 #include "gumdrop.h"
 #include <iostream>
+#include <fstream>
+#include "data_controller.h"
 void flashSegment(seg_display *a);
 void flashGumdrop(gumdrop *a);
 
@@ -40,6 +42,8 @@ void flashGumdrop(gumdrop *a);
 	gumdrop *blue = new gumdrop("21");
 	int switch_lock=0; //indicates if the switch has hit zero since it was read as high
 	int display_state=0; //determines what data should be displayed
+	std::string output_path="/home/pi/Desktop/code/git/observer/save.dat";
+	data_controller *dc = new data_controller(output_path);
 	
 	//run diagnostic on LEDs
 	flashSegment(left);
