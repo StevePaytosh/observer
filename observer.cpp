@@ -46,20 +46,28 @@ void flashGumdrop(gumdrop *a);
 	data_controller *dc = new data_controller(output_path);
 	
 	//run diagnostic on LEDs
-	flashSegment(left);
-	flashSegment(right);
-	flashGumdrop(red);
-	flashGumdrop(blue);
+	//flashSegment(left);
+	//flashSegment(right);
+	//flashGumdrop(red);
+	//flashGumdrop(blue);
 	
-	int temp=sensor->getTempCelcius();
-	int humidity = sensor -> getHumidity();
+	float temp=0; //sensor->getTempCelcius();
+	float humidity =0;// sensor -> getHumidity();
 	int res=0;
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
 
 	
+
+	int a =sensor->getTempCelcius();
+	int b =sensor->getHumidity();
+	
+	temp=a?a:temp;
+	humidity=b?b:humidity;
+	printf("data pre-write:: temp=%f humidity=%f\n",temp, humidity);
 	dc->store(temp,humidity);
-	//printf("test: temp= %d",temp);
+//	dc->read();
+	
 	while(1)
 	{
 		
@@ -99,7 +107,7 @@ void flashGumdrop(gumdrop *a);
 			{
 				temp=sensor->getTempFarenheight();
 				left->display(temp/10);
-				right->display(temp%10);//display the lower portion of the temperature
+				right->display((int)temp%10);//display the lower portion of the temperature
 				
 				red->turn_on();
 				blue->turn_off();
@@ -107,7 +115,7 @@ void flashGumdrop(gumdrop *a);
 			else
 			{
 				left->display(temp/10);
-				right->display(temp%10);//display the lower portion of the temperature
+				right->display((int)temp%10);//display the lower portion of the temperature
 				
 				red->turn_off();
 				blue->turn_on();
@@ -117,7 +125,7 @@ void flashGumdrop(gumdrop *a);
 		{
 			humidity = sensor->getHumidity();
 			left -> display(humidity/10);
-			right -> display (humidity%10);
+			right -> display ((int)humidity%10);
 				
 			red->turn_on();
 			blue->turn_on();	
