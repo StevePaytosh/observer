@@ -29,6 +29,7 @@
 #include "data_controller.h"
 void flashSegment(seg_display *a);
 void flashGumdrop(gumdrop *a);
+void flashNotification(gumdrop *a, gumdrop *b);
 
 
 
@@ -126,17 +127,7 @@ void flashGumdrop(gumdrop *a);
 		if( difftime(time(0),dc->lastSampleTime() ) >= 30)
 		{
 			dc->store(temp,humidity);
-			red->turn_on();
-			blue->turn_on();
-			delay(100);
-			red->turn_off();
-			blue->turn_off();
-			delay(100);
-			red->turn_on();
-			blue->turn_on();
-			delay(100);
-			red->turn_off();
-			blue->turn_off();
+			flashNotification(red,blue);
 		}
 	}
 }
@@ -171,3 +162,17 @@ void flashGumdrop(gumdrop *a)
 	
 }
 
+void flashNotification(gumdrop *a, gumdrop *b)
+{
+			a->turn_on();
+			b->turn_on();
+			delay(100);
+			a->turn_off();
+			b->turn_off();
+			delay(100);
+			a->turn_on();
+			b->turn_on();
+			delay(100);
+			a->turn_off();
+			b->turn_off();
+}
