@@ -45,7 +45,7 @@ void flashGumdrop(gumdrop *a);
 	std::string output_path="/home/pi/Desktop/code/git/observer/save.dat";
 	data_controller *dc = new data_controller(output_path);
 	
-	run diagnostic on LEDs
+	//run diagnostic on LEDs
 	flashSegment(left);
 	flashSegment(right);
 	flashGumdrop(red);
