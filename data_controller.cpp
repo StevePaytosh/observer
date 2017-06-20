@@ -11,33 +11,40 @@ data_controller::~data_controller()
 	out.close();
 }
 
-int data_controller::store(float temp, float humidity)
+int data_controller::update(float temp, float humidity)
 {
-	out.open("/home/pi/Desktop/code/git/observer/save.dat", std::ios::binary | std::ofstream::app);
-	current_temp=temp;
-	current_humidity=humidity;
-	time(&last_sample);
+	current.temp=temp;
+	current.humidity=humidity;
+	std::time(&current.sample_time);
 	
-	data_controller::data d;
-	d.sample_time=last_sample;
-	d.temp=current_temp;
-	d.humidity=current_humidity;
-	printf("data write:: temp=%.3f humidity=%.3f\n",d.temp, d.humidity);
-	out.write((char*)&d, sizeof(data_controller));
-	
-	out.close();
-	return 1;
 }
 
-void data_controller::read()
+int data_controller::store(float temp, float humidity)
+{	
+	update(temp,humidity);
+	return store();
+}
+
+int data_controller::store()
+{
+	out.open("/home/pi/Desktop/code/git/observer/save.dat", std::ios::binary | std::ofstream::app);
+	out.write((char*)&current, sizeof(data_controller));
+	out.close();
+	return 1;
+		
+}
+
+int data_controller::read()
 {
 	
 	in.open("/home/pi/Desktop/code/git/observer/save.dat", std::ios::binary);
 	data_controller::data d;
-	
 	in.read((char*)&d, sizeof(data_controller));
-	printf("data read:: temp=%.3f humidity=%.3f\n",d.temp, d.humidity);
-	printf("print out after read\n");
 	in.close();
-	return;
+	return 1;
+}
+
+std::time_t data_controller::lastSampleTime()
+{
+	return current.sample_time;
 }

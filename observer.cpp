@@ -45,28 +45,17 @@ void flashGumdrop(gumdrop *a);
 	std::string output_path="/home/pi/Desktop/code/git/observer/save.dat";
 	data_controller *dc = new data_controller(output_path);
 	
-	//run diagnostic on LEDs
-	//flashSegment(left);
-	//flashSegment(right);
-	//flashGumdrop(red);
-	//flashGumdrop(blue);
+	run diagnostic on LEDs
+	flashSegment(left);
+	flashSegment(right);
+	flashGumdrop(red);
+	flashGumdrop(blue);
 	
 	float temp=0; //sensor->getTempCelcius();
 	float humidity =0;// sensor -> getHumidity();
 	int res=0;
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
-
-	
-
-	int a =sensor->getTempCelcius();
-	int b =sensor->getHumidity();
-	
-	temp=a?a:temp;
-	humidity=b?b:humidity;
-	printf("data pre-write:: temp=%f humidity=%f\n",temp, humidity);
-	dc->store(temp,humidity);
-//	dc->read();
 	
 	while(1)
 	{
@@ -134,6 +123,21 @@ void flashGumdrop(gumdrop *a);
 		
 		}
 			
+		if( difftime(time(0),dc->lastSampleTime() ) >= 30)
+		{
+			dc->store(temp,humidity);
+			red->turn_on();
+			blue->turn_on();
+			delay(100);
+			red->turn_off();
+			blue->turn_off();
+			delay(100);
+			red->turn_on();
+			blue->turn_on();
+			delay(100);
+			red->turn_off();
+			blue->turn_off();
+		}
 	}
 }
 
