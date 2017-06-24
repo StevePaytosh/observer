@@ -20,10 +20,11 @@ void clear_all();
 void set_all();
 void set_sans(int sans_flag);
 void set_common(int common);
-int sans;
-int active;
+
 
 private:
+int sans;
+int active;
 GPIOClass* TOP_LEFT;
 GPIOClass* TOP;
 GPIOClass* TOP_RIGHT;

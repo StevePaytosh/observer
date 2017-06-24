@@ -264,4 +264,12 @@ void seg_display::clear_all()
 	turn_off(8);
 }
 
+void seg_display::set_sans(int sans_flag)
+{
+	sans=sans_flag;
+}
 
+void seg_display::set_common(int common)
+{
+	active=common;
+}
