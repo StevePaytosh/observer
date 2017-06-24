@@ -5,11 +5,8 @@ class seg_display
 {
 public:
 seg_display();
-seg_display(std::string tl, std::string t, std::string tr, std::string br, std::string b, std::string bl, std::string m, std::string d);
-seg_display(int tl, int t, int tr, int br, int b, int bl, int m, int d);
-void setUnitName(std::string n);
-void setUnitNumber(int n);
-int compare(seg_display *a);
+seg_display(std::string tl, std::string t, std::string tr, std::string br, std::string b, std::string bl, std::string m, std::string d, int sans_flag=0, int common=0);
+seg_display(int tl, int t, int tr, int br, int b, int bl, int m, int d, int sans_flag=0, int common=0);
 int set(std::string a, int b);
 int set(int a, int b);
 int init(std::string tl, std::string t, std::string tr, std::string br, std::string b, std::string bl, std::string m, std::string d);
@@ -21,6 +18,10 @@ int turn_off(int a);
 int display(int num, int font=0);
 void clear_all();
 void set_all();
+void set_sans(int sans_flag);
+void set_common(int common);
+int sans;
+int active;
 
 private:
 GPIOClass* TOP_LEFT;
@@ -31,8 +32,6 @@ GPIOClass* BOTTOM;
 GPIOClass* BOTTOM_LEFT; 
 GPIOClass* MIDDLE ;
 GPIOClass* DOT;
-int number;
-std::string name;
 GPIOClass* getLEDByNumber(int num);
 void set_zero(int font = 0);
 void set_one(int font = 0);
@@ -44,6 +43,7 @@ void set_six(int font=0);
 void set_seven(int font=0);
 void set_eight(int font=0);
 void set_nine(int font=0);
+
 
 
 };

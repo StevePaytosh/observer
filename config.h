@@ -7,8 +7,8 @@
 #define LEFT_SEG_BOTTOM_LEFT "2"
 #define LEFT_SEG_MIDDLE "3"
 #define LEFT_SEG_DOT "18"
-#define LEFT_SEG_SANS "false"
-#define COMMON "cathode"
+#define LEFT_SEG_SANS 0
+#define LEFT_SEG_COMMON 0
 
 //RIGHT SEGMENT DISPLAY
 #define RIGHT_SEG_TOP_LEFT "10"
@@ -19,8 +19,8 @@
 #define RIGHT_SEG_BOTTOM_LEFT "11"
 #define RIGHT_SEG_MIDDLE "9"
 #define RIGHT_SEG_DOT "5"
-#define RIGHT_SEG_SANS "true"
-#define COMMON "cathode"
+#define RIGHT_SEG_SANS 1
+#define RIGHT_SEG_COMMON 0
 
 //RED GUMDROP
 #define RED_GUMDROP "20"
@@ -37,6 +37,7 @@
 #define DTH11PIN
 
 //SAVE FILES
-#define TEMP "/home/pi/Desktop/code/git/observer/save.dat"
+#define TEMP "/home/pi/Desktop/code/git/observer/data/test.dat"
+#define PROD "/home/pi/Desktop/code/git/observer/data/save.dat"
 
 

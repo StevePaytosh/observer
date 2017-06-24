@@ -6,7 +6,7 @@ seg_display::seg_display()
 	//initializing a logical segment display with nothing
 }	
 
-seg_display::seg_display(std::string tl, std::string t, std::string tr, std::string br, std::string b, std::string bl, std::string m, std::string d)
+seg_display::seg_display(std::string tl, std::string t, std::string tr, std::string br, std::string b, std::string bl, std::string m, std::string d, int sans_flag, int common)
 {
 	//initializes a logical segment display with the pin number for each pin assigned by the string
 	TOP_LEFT=new GPIOClass(tl);
@@ -41,6 +41,9 @@ seg_display::seg_display(std::string tl, std::string t, std::string tr, std::str
 	
 	MIDDLE->export_gpio(); 
 	MIDDLE->setdir_gpio("out");
+	
+	sans=sans_flag;
+	active=!common;
 	 
 }
 
@@ -100,6 +103,8 @@ int seg_display::display(int num,int font)
 	
 	if(num>10 || num<0)
 		return 0; //invalid number return false
+		
+	font=sans;
 		
 
 	clear_all();
@@ -259,48 +264,4 @@ void seg_display::clear_all()
 	turn_off(8);
 }
 
-//int compare(seg_display *a)
-//{
-	////compare return 1 if this segment is "greater than" the a gven segment display (parameter)
-	////if they are equal return 0 and -1 for less than.
-	////First compare off of the unit number, if they are equal than by unit name. No name/number are treated as "less than" any other name/number
-	
-	//if(this.number != null || a.number != null)
-	//{
-		////if one of the segments has a number, we can compare
-		//if(this.number == null && a.number != null)
-			//return -1;
-		//else if(a.number == null && this.number != null)
-			//return 1;
-		//else
-		//{
-			//if(this.number > a.number)
-			//return 1;
-			//else if (this. number < a.number)
-			//return -1;
-			//else
-			//return 0;
-		//}
-	//}
-	
-	////if we could not compare on numbers, we must compare on name
-	
-	//if(this.name != null && a.name != null )
-	//{
-		////if of the segments has a name, we can compare
-		//if(this.name == null && a.name != null)
-			//return -1;
-		//else if(a.name == null && this.name != null)
-			//return 1;
-		//else
-		//{
-			//return strcmp(this.name, a.name);
-		//}
-		
-	//}
-	//else
-	//{
-			//return 0;
-	//}
-	
-//}
+
