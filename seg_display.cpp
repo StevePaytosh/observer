@@ -43,7 +43,7 @@ seg_display::seg_display(std::string tl, std::string t, std::string tr, std::str
 	MIDDLE->setdir_gpio("out");
 	
 	sans=sans_flag;
-	active=!common;
+	active=common;
 	 
 }
 
@@ -73,7 +73,7 @@ int seg_display::assign (int num, int value)
 	
 	if(reff != NULL)
 	{
-		if(value)
+		if(value^active)
 			{
 				reff->setval_gpio("1");
 				return 1;

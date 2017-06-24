@@ -1,3 +1,10 @@
+//COMMON DEF
+#define CATHODE 0
+#define ANODE 1
+#define HIGH 1
+#define LOW 0
+
+
 //LEFT SEGMENT DISPLAY
 #define LEFT_SEG_TOP_LEFT "27"
 #define LEFT_SEG_TOP "15"
@@ -7,8 +14,8 @@
 #define LEFT_SEG_BOTTOM_LEFT "2"
 #define LEFT_SEG_MIDDLE "3"
 #define LEFT_SEG_DOT "18"
-#define LEFT_SEG_SANS 0
-#define LEFT_SEG_COMMON 0
+#define LEFT_SEG_SANS TRUE
+#define LEFT_SEG_COMMON CATHODE
 
 //RIGHT SEGMENT DISPLAY
 #define RIGHT_SEG_TOP_LEFT "10"
@@ -19,8 +26,8 @@
 #define RIGHT_SEG_BOTTOM_LEFT "11"
 #define RIGHT_SEG_MIDDLE "9"
 #define RIGHT_SEG_DOT "5"
-#define RIGHT_SEG_SANS 1
-#define RIGHT_SEG_COMMON 0
+#define RIGHT_SEG_SANS TRUE
+#define RIGHT_SEG_COMMON CATHODE
 
 //RED GUMDROP
 #define RED_GUMDROP "20"
@@ -31,7 +38,7 @@
 
 //TACTILE SWITCH
 #define TACT_SWITCH "26"
-#define ACTIVE "low"
+#define ACTIVE LOW
 
 //TEMPERATURE SENSOR
 #define DTH11PIN
