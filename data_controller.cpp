@@ -3,7 +3,6 @@
 data_controller::data_controller(std::string d)
 {
 	file_path=d;
-	//out.open("/home/pi/Desktop/code/git/observer/save.dat", std::ios::binary | std::ofstream::app);
 }
 
 data_controller::~data_controller()
@@ -27,7 +26,7 @@ int data_controller::store(float temp, float humidity)
 
 int data_controller::store()
 {
-	out.open("/home/pi/Desktop/code/git/observer/save.dat", std::ios::binary | std::ofstream::app);
+	out.open(file_path.c_str(), std::ios::binary | std::ofstream::app);
 	out.write((char*)&current, sizeof(data_controller));
 	out.close();
 	return 1;
@@ -37,9 +36,20 @@ int data_controller::store()
 int data_controller::read()
 {
 	
-	in.open("/home/pi/Desktop/code/git/observer/save.dat", std::ios::binary);
+	in.open(file_path.c_str(), std::ios::binary);
 	data_controller::data d;
-	in.read((char*)&d, sizeof(data_controller));
+	while(1)
+	{
+		in.read((char*)&d, sizeof(data_controller));
+		if(in.eof())
+		{
+			printf("eof\n");
+			break;
+		}	
+			
+		printf("%s %.2f*c %.2f%\n", asctime(localtime(&d.sample_time)), d.temp, d.humidity);
+	}
+	
 	in.close();
 	return 1;
 }

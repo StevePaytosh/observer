@@ -61,6 +61,7 @@ void initialize(seg_display *right, seg_display *left);
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
 	
+	
 	while(1)
 	{
 		if(tc->getState() && !switch_lock)
