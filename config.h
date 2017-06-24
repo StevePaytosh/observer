@@ -41,7 +41,7 @@
 #define ACTIVE LOW
 
 //TEMPERATURE SENSOR
-#define DTH11PIN
+#define DTH11PIN "7"
 
 //SAVE FILES
 #define TEMP "/home/pi/Desktop/code/git/observer/data/test.dat"

@@ -39,7 +39,7 @@ void initialize(seg_display *right, seg_display *left);
 {
 	seg_display *right= new seg_display(LEFT_SEG_TOP_LEFT,LEFT_SEG_TOP,LEFT_SEG_TOP_RIGHT,LEFT_SEG_BOTTOM_RIGHT,LEFT_SEG_BOTTOM,LEFT_SEG_BOTTOM_LEFT,LEFT_SEG_MIDDLE,LEFT_SEG_DOT, LEFT_SEG_SANS, LEFT_SEG_COMMON);
 	seg_display *left = new seg_display(RIGHT_SEG_TOP_LEFT,RIGHT_SEG_TOP,RIGHT_SEG_TOP_RIGHT,RIGHT_SEG_BOTTOM_RIGHT,RIGHT_SEG_BOTTOM,RIGHT_SEG_BOTTOM_LEFT,RIGHT_SEG_MIDDLE,RIGHT_SEG_DOT, RIGHT_SEG_SANS, RIGHT_SEG_COMMON);
-	temp_sensor *sensor = new temp_sensor();
+	temp_sensor *sensor = new temp_sensor(DTH11PIN);
 	tact_switch *tc = new tact_switch(TACT_SWITCH,1);
 	gumdrop *red= new gumdrop(RED_GUMDROP);
 	gumdrop *blue = new gumdrop(BLUE_GUMDROP);
