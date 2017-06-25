@@ -29,7 +29,10 @@ int data_controller::store(float temp, float humidity)
 int data_controller::store()
 {
 	out.open(file_path.c_str(), std::ios::binary | std::ofstream::app);
-	out.write((char*)&current, sizeof(data_controller));
+	//out.write((char*)&current, sizeof(data_controller));
+	out.write((char*)&current.sample_time, sizeof(long long int) );
+	out.write((char*)&current.temp, sizeof(float) );
+	out.write((char*)&current.humidity, sizeof(float) );
 	out.close();
 	return 1;
 		
@@ -39,29 +42,28 @@ int data_controller::read()
 {
 	
 	in.open(file_path.c_str(), std::ios::binary|std::ios::in);
-	//in.clear();
-	//in.seekg(0);
 	long long int read_time;
 	float read_temp;
 	float read_humidity;
 	
 	while(1)
 	{
-		in.read((char*)&read_time, sizeof(long long int));
-		in.read((char*)&read_temp, sizeof(float));
-		in.read((char*)&read_humidity, sizeof(float));
+		if(in.eof())	break;
+			in.read((char*)&read_time, sizeof(long long int));
 		
-		if(in.eof())
-		{
-			printf("eof\n");
-			break;
-		}	
+		if(in.eof())	break;
+			in.read((char*)&read_temp, sizeof(float));
+		
+		if(in.eof())	break;
+			in.read((char*)&read_humidity, sizeof(float));
+		
+		
+		
 		time_t a=(time_t)read_time;	
-		printf("%s %.2f*c %.2f%\n", asctime(localtime(&a)), read_temp, read_humidity);
+		printf("%s%.2f*c\n%.2f%\n\n", asctime(localtime(&a)), read_temp, read_humidity);
 	}
 	
 	in.close();
-	printf("closed input\n");
 	return 1;
 }
 
