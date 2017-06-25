@@ -10,7 +10,7 @@ class data_controller
 	struct data
 	{
 		
-		std::time_t sample_time;
+		long long int sample_time;
 		float temp;
 		float humidity;
 		
@@ -22,7 +22,7 @@ class data_controller
 	int store();
 	int read();
 	int update(float temp, float humidity);
-	std::time_t lastSampleTime();
+	long long int lastSampleTime();
 	
 	private:
 	std::ofstream out;

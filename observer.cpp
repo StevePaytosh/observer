@@ -61,6 +61,9 @@ void initialize(seg_display *right, seg_display *left);
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
 	
+	dc->read();
+	printf("test\n");
+	dc->read();
 	
 	while(1)
 	{
@@ -131,7 +134,13 @@ void initialize(seg_display *right, seg_display *left);
 		{
 			dc->store(temp,humidity);
 			flashNotification(red,blue);
+			
+			long long int last_sample = dc->lastSampleTime();
+			time_t ls=(time_t)last_sample;
+			printf("sample time: %s\n",asctime(localtime(&ls)));
 		}
+			
+
 	}
 }
 

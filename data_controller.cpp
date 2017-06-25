@@ -14,7 +14,9 @@ int data_controller::update(float temp, float humidity)
 {
 	current.temp=temp;
 	current.humidity=humidity;
-	std::time(&current.sample_time);
+	time_t a;
+	std::time(&a);
+	current.sample_time=(long long int)a;
 	
 }
 
@@ -36,25 +38,34 @@ int data_controller::store()
 int data_controller::read()
 {
 	
-	in.open(file_path.c_str(), std::ios::binary);
-	data_controller::data d;
+	in.open(file_path.c_str(), std::ios::binary|std::ios::in);
+	//in.clear();
+	//in.seekg(0);
+	long long int read_time;
+	float read_temp;
+	float read_humidity;
+	
 	while(1)
 	{
-		in.read((char*)&d, sizeof(data_controller));
+		in.read((char*)&read_time, sizeof(long long int));
+		in.read((char*)&read_temp, sizeof(float));
+		in.read((char*)&read_humidity, sizeof(float));
+		
 		if(in.eof())
 		{
 			printf("eof\n");
 			break;
 		}	
-			
-		printf("%s %.2f*c %.2f%\n", asctime(localtime(&d.sample_time)), d.temp, d.humidity);
+		time_t a=(time_t)read_time;	
+		printf("%s %.2f*c %.2f%\n", asctime(localtime(&a)), read_temp, read_humidity);
 	}
 	
 	in.close();
+	printf("closed input\n");
 	return 1;
 }
 
-std::time_t data_controller::lastSampleTime()
+long long int data_controller::lastSampleTime()
 {
 	return current.sample_time;
 }
