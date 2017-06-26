@@ -28,42 +28,30 @@
 #include <fstream>
 #include "data_controller.h"
 #include "config.h"
-void flashSegment(seg_display *a);
-void flashGumdrop(gumdrop *a);
 void flashNotification(gumdrop *a, gumdrop *b);
-void initialize(seg_display *right, seg_display *left);
-
-
+void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r); 
 
  int main (void)
 {
-	seg_display *right= new seg_display(LEFT_SEG_TOP_LEFT,LEFT_SEG_TOP,LEFT_SEG_TOP_RIGHT,LEFT_SEG_BOTTOM_RIGHT,LEFT_SEG_BOTTOM,LEFT_SEG_BOTTOM_LEFT,LEFT_SEG_MIDDLE,LEFT_SEG_DOT, LEFT_SEG_SANS, LEFT_SEG_COMMON);
+
+	seg_display *right = new seg_display(LEFT_SEG_TOP_LEFT,LEFT_SEG_TOP,LEFT_SEG_TOP_RIGHT,LEFT_SEG_BOTTOM_RIGHT,LEFT_SEG_BOTTOM,LEFT_SEG_BOTTOM_LEFT,LEFT_SEG_MIDDLE,LEFT_SEG_DOT, LEFT_SEG_SANS, LEFT_SEG_COMMON);
 	seg_display *left = new seg_display(RIGHT_SEG_TOP_LEFT,RIGHT_SEG_TOP,RIGHT_SEG_TOP_RIGHT,RIGHT_SEG_BOTTOM_RIGHT,RIGHT_SEG_BOTTOM,RIGHT_SEG_BOTTOM_LEFT,RIGHT_SEG_MIDDLE,RIGHT_SEG_DOT, RIGHT_SEG_SANS, RIGHT_SEG_COMMON);
 	temp_sensor *sensor = new temp_sensor(DTH11PIN);
-	tact_switch *tc = new tact_switch(TACT_SWITCH,TACT_SWITCH_ACTIVE);
+	tact_switch *tc= new tact_switch(TACT_SWITCH,TACT_SWITCH_ACTIVE);
 	gumdrop *red= new gumdrop(RED_GUMDROP);
 	gumdrop *blue = new gumdrop(BLUE_GUMDROP);
+	data_controller *dc = new data_controller(FILE_PATH);
+
 	int switch_lock=0; //indicates if the switch has hit zero since it was read as high
 	int display_state=0; //determines what data should be displayed
-	std::string output_path="/home/pi/Desktop/code/git/observer/save.dat";
-	data_controller *dc = new data_controller(output_path);
-	//initialize(right,left);
 	
-	//run diagnostic on LEDs
-	flashSegment(left);
-	flashSegment(right);
-	flashGumdrop(red);
-	flashGumdrop(blue);
+	diagnostic(red,blue,left,right);
 	
 	float temp=0; //sensor->getTempCelcius();
 	float humidity =0;// sensor -> getHumidity();
 	int res=0;
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
-	
-	dc->read();
-	printf("test\n");
-	dc->read();
 	
 	while(1)
 	{
@@ -144,33 +132,78 @@ void initialize(seg_display *right, seg_display *left);
 	}
 }
 
-void flashSegment(seg_display *a)
-{
-	int i=0;
-	for(;i<2; i++)
-	{
-		a->clear_all();
-		delay(700);
-		a->set_all();
-		delay(700);
-	}
-	
-	a->clear_all();
-}
 
-void flashGumdrop(gumdrop *a)
+void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r)
 {
-	int i=0;
-	for(;i<2;i++)
-	{
-		a->turn_off();
-		delay(700);
-		a->turn_on();
-		delay(700);
+		l->clear_all();
+		r->clear_all();
 		
-	}
-	
-	a->turn_off();
+		l->set_all();
+		r->set_all();
+		delay(500);
+		
+		l->clear_all();
+		r->clear_all();
+		
+		l->turn_on(7);
+		r->turn_on(7);
+		delay(200);
+		l->turn_off(7);
+		r->turn_off(7);
+		
+		l->turn_on(4);
+		r->turn_on(4);
+		delay(200);
+		l->turn_off(4);
+		r->turn_off(4);
+		
+		l->turn_on(5);
+		r->turn_on(5);
+		delay(200);
+		l->turn_off(5);
+		r->turn_off(5);
+		
+		l->turn_on(6);
+		r->turn_on(6);
+		delay(200);
+		l->turn_off(6);
+		r->turn_off(6);
+		
+		l->turn_on(1);
+		r->turn_on(1);
+		delay(200);
+		l->turn_off(1);
+		r->turn_off(1);
+		
+		l->turn_on(2);
+		r->turn_on(2);
+		delay(200);
+		l->turn_off(2);
+		r->turn_off(2);
+		
+		l->turn_on(3);
+		r->turn_on(3);
+		delay(200);
+		l->turn_off(3);
+		r->turn_off(3);
+		
+		l->turn_on(8);
+		r->turn_on(8);
+		delay(200);
+		l->turn_off(8);
+		r->turn_off(8);
+		
+		
+		for(int i=0; i<4; i++)
+		{
+			delay(125);
+			a->turn_on();
+			b->turn_on();
+			delay(125);
+			a->turn_off();
+			b->turn_off();
+			
+		}		
 	
 }
 
@@ -189,7 +222,4 @@ void flashNotification(gumdrop *a, gumdrop *b)
 			b->turn_off();
 }
 
-void initialize(seg_display *right, seg_display *left)
-{
-	
-}
+

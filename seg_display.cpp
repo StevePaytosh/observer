@@ -228,7 +228,7 @@ void seg_display::set_eight(int font)
 void seg_display::set_nine(int font)
 {
 	//writes out "9" to the segment display
-		turn_on(1);
+	turn_on(1);
 	turn_on(2);
 	turn_on(3);
 	turn_on(4);

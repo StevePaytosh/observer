@@ -47,4 +47,4 @@
 #define TEMP "/home/pi/Desktop/code/git/observer/data/test.dat"
 #define PROD "/home/pi/Desktop/code/git/observer/data/save.dat"
 
-
+#define FILE_PATH TEMP
