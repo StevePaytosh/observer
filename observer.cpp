@@ -53,6 +53,8 @@ void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r);
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
 	
+	system("echo \"test from observer program\" | mail -s \"SunLab Observer -- Test\" mrblond619f5@hotmail.com");
+	
 	while(1)
 	{
 		if(tc->getState() && !switch_lock)
