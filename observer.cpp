@@ -28,6 +28,7 @@
 #include <fstream>
 #include "data_controller.h"
 #include "config.h"
+#include "mail.h"
 void flashNotification(gumdrop *a, gumdrop *b);
 void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r); 
 
@@ -41,10 +42,12 @@ void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r);
 	gumdrop *red= new gumdrop(RED_GUMDROP);
 	gumdrop *blue = new gumdrop(BLUE_GUMDROP);
 	data_controller *dc = new data_controller(FILE_PATH);
-
+    mail *postman=new mail(SEND_TO,SUBJECT, BODY);
 	int switch_lock=0; //indicates if the switch has hit zero since it was read as high
 	int display_state=0; //determines what data should be displayed
+	time_t last_email;
 	
+	std::time(&last_email);
 	diagnostic(red,blue,left,right);
 	
 	float temp=0; //sensor->getTempCelcius();
@@ -52,8 +55,6 @@ void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r);
 	int res=0;
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
-	
-	system("echo \"test from observer program\" | mail -s \"SunLab Observer -- Test\" mrblond619f5@hotmail.com");
 	
 	while(1)
 	{
@@ -127,7 +128,21 @@ void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r);
 			
 			long long int last_sample = dc->lastSampleTime();
 			time_t ls=(time_t)last_sample;
-			printf("sample time: %s\n",asctime(localtime(&ls)));
+			
+			
+			if(SEND_NOTIFICATIONS  && sensor->getTempCelcius()>MAX_TEMP_CELCIUS)
+			{
+				//send an email indicating that it is too hot
+				time_t current;
+				std::time(&current);
+				if(difftime(current,last_email)/60 > RELAPSE_TIME)
+				{
+					postman->send();
+					time(&last_email);
+				}
+			
+			}
+			
 		}
 			
 

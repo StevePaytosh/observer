@@ -43,6 +43,15 @@
 //TEMPERATURE SENSOR
 #define DTH11PIN "7"
 
+//EMAIL Settings
+#define SEND_TO "mrblond619f5@hotmail.com"
+#define SUBJECT "SunLab Observer -- TEST"
+#define BODY "This is a test email for the SunLab Observer"
+#define SEND_NOTIFICATIONS TRUE
+//minutes between emails that can be sent
+#define RELAPSE_TIME 2 
+#define MAX_TEMP_CELCIUS 18.33
+
 //SAVE FILES
 #define TEMP "/home/pi/Desktop/code/git/observer/data/test.dat"
 #define PROD "/home/pi/Desktop/code/git/observer/data/save.dat"
