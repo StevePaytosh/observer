@@ -49,7 +49,7 @@
 #define BODY "This is a test email for the SunLab Observer"
 #define SEND_NOTIFICATIONS TRUE
 //minutes between emails that can be sent
-#define RELAPSE_TIME 2 
+#define RELAPSE_TIME 0
 #define MAX_TEMP_CELCIUS 18.33
 
 //SAVE FILES

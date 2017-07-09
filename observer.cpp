@@ -135,9 +135,11 @@ void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r);
 				//send an email indicating that it is too hot
 				time_t current;
 				std::time(&current);
+				
+				std::string msg_body="<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"red\\\">too hot</font></b><br><p>Current Temperature: "+ std::to_string(sensor->getTempFarenheight())+"&#176F<br>Current Humidity: "+std::to_string(sensor->getHumidity())+"%</body></html>";
 				if(difftime(current,last_email)/60 > RELAPSE_TIME)
 				{
-					postman->send();
+					postman->send(SEND_TO, SUBJECT, msg_body);
 					time(&last_email);
 				}
 			
