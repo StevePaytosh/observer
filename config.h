@@ -49,8 +49,10 @@
 #define BODY "This is a test email for the SunLab Observer"
 #define SEND_NOTIFICATIONS TRUE
 //minutes between emails that can be sent
-#define RELAPSE_TIME 60
-#define MAX_TEMP_CELCIUS 18.33
+#define RELAPSE_TIME 2
+#define MAX_TEMP_CELCIUS 25
+#define MIN_TEMP_CELCIUS 25
+#define MAX_HEAT_INDEX 85
 
 //SAVE FILES
 #define TEMP "/home/pi/Desktop/code/git/observer/data/test.dat"

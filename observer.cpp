@@ -125,7 +125,7 @@ float getHeatIndex(float temp_farenheight, float humidity);
 		}	
 		
 		}
-		getHeatIndex(sensor->getTempFarenheight(),sensor->getHumidity());	
+		
 		if( difftime(time(0),dc->lastSampleTime() ) >= 30)
 		{
 			dc->store(temp,humidity);
@@ -134,15 +134,48 @@ float getHeatIndex(float temp_farenheight, float humidity);
 			long long int last_sample = dc->lastSampleTime();
 			time_t ls=(time_t)last_sample;
 			
-			
-			if(SEND_NOTIFICATIONS  && sensor->getTempCelcius()>MAX_TEMP_CELCIUS)
+			if(SEND_NOTIFICATIONS && getHeatIndex(sensor->getTempFarenheight(),sensor->getHumidity()) >= MAX_HEAT_INDEX)
+			{
+				//send an email indicating that the heat index is to high
+				time_t current;
+				std::time(&current);
+				std::ostringstream msg_body;
+				float heat_index=getHeatIndex(sensor->getTempFarenheight(),sensor->getHumidity());
+				
+				msg_body<<"<html><body><b>The SunLab Observer has determined that <font size=\\\"3\\\" color=\\\"red\\\">heat index is too high</font></b><br><p>Current Heat Index: "
+				<<std::setprecision(3)<<heat_index<<"<br>Current Temperature: " << sensor->getTempFarenheight()<<"&#176 F<br>Current Humidity: "
+				<<sensor->getHumidity()
+				<<"%<br><p>for more information of heat index <a href=\"http://www.nws.noaa.gov/om/heat/heat_index.shtml\">click here</a><p><img src=\"http://www.nws.noaa.gov/om/heat/heat-images/heatindexchart.png\">To view this image, download images for this email</img></body></html>";
+				if(difftime(current,last_email)/60 > RELAPSE_TIME)
+				{
+					postman->send(SEND_TO, SUBJECT, msg_body.str());
+					time(&last_email);
+				}
+				
+			}
+			else if(SEND_NOTIFICATIONS  && sensor->getTempCelcius()>MAX_TEMP_CELCIUS)
 			{
 				//send an email indicating that it is too hot
 				time_t current;
 				std::time(&current);
 				std::ostringstream msg_body;
 				
-				msg_body<<"<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"red\\\">too hot</font></b><br><p>Current Temperature: "<<std::setprecision(3) << sensor->getTempFarenheight()<<"&#176F<br>Current Humidity: "<<sensor->getHumidity()<<"%</body></html>";
+				msg_body<<"<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"red\\\">too hot</font></b><br><p>Current Temperature: "<<std::setprecision(3) << sensor->getTempFarenheight()<<"&#176 F<br>Current Humidity: "<<sensor->getHumidity()<<"%</body></html>";
+				if(difftime(current,last_email)/60 > RELAPSE_TIME)
+				{
+					postman->send(SEND_TO, SUBJECT, msg_body.str());
+					time(&last_email);
+				}
+			
+			}
+				else if(SEND_NOTIFICATIONS  && sensor->getTempCelcius()<MIN_TEMP_CELCIUS)
+			{
+				//send an email indicating that it is too cold
+				time_t current;
+				std::time(&current);
+				std::ostringstream msg_body;
+				
+				msg_body<<"<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"blue\\\">too cold</font></b><br><p>Current Temperature: "<<std::setprecision(3) << sensor->getTempFarenheight()<<"&#176 F<br>Current Humidity: "<<sensor->getHumidity()<<"%</body></html>";
 				if(difftime(current,last_email)/60 > RELAPSE_TIME)
 				{
 					postman->send(SEND_TO, SUBJECT, msg_body.str());
@@ -282,7 +315,7 @@ float getHeatIndex(float temp_farenheight, float humidity)
 	
 	
 	
-	printf("temp: %.2f humidity: %.2f heat index%.2f\n",temp_farenheight, humidity, heatIndex);
+	//printf("temp: %.2f humidity: %.2f heat index%.2f\n",temp_farenheight, humidity, heatIndex);
 	return heatIndex;
 }
 
