@@ -26,6 +26,8 @@
 #include "gumdrop.h"
 #include <iostream>
 #include <fstream>
+#include <iomanip>
+#include <sstream>
 #include "data_controller.h"
 #include "config.h"
 #include "mail.h"
@@ -135,11 +137,12 @@ void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r);
 				//send an email indicating that it is too hot
 				time_t current;
 				std::time(&current);
+				std::ostringstream msg_body;
 				
-				std::string msg_body="<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"red\\\">too hot</font></b><br><p>Current Temperature: "+ std::to_string(sensor->getTempFarenheight())+"&#176F<br>Current Humidity: "+std::to_string(sensor->getHumidity())+"%</body></html>";
+				msg_body<<"<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"red\\\">too hot</font></b><br><p>Current Temperature: "<<std::setprecision(3) << sensor->getTempFarenheight()<<"&#176F<br>Current Humidity: "<<sensor->getHumidity()<<"%</body></html>";
 				if(difftime(current,last_email)/60 > RELAPSE_TIME)
 				{
-					postman->send(SEND_TO, SUBJECT, msg_body);
+					postman->send(SEND_TO, SUBJECT, msg_body.str());
 					time(&last_email);
 				}
 			
