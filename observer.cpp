@@ -28,11 +28,14 @@
 #include <fstream>
 #include <iomanip>
 #include <sstream>
+#include <math.h>
+#include <cmath>
 #include "data_controller.h"
 #include "config.h"
 #include "mail.h"
 void flashNotification(gumdrop *a, gumdrop *b);
 void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r); 
+float getHeatIndex(float temp_farenheight, float humidity);
 
  int main (void)
 {
@@ -122,7 +125,7 @@ void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r);
 		}	
 		
 		}
-			
+		getHeatIndex(sensor->getTempFarenheight(),sensor->getHumidity());	
 		if( difftime(time(0),dc->lastSampleTime() ) >= 30)
 		{
 			dc->store(temp,humidity);
@@ -242,6 +245,45 @@ void flashNotification(gumdrop *a, gumdrop *b)
 			delay(100);
 			a->turn_off();
 			b->turn_off();
+}
+
+float getHeatIndex(float temp_farenheight, float humidity)
+{
+	//HI = -42.379 + 2.04901523*T + 10.14333127*RH - .22475541*T*RH - .00683783*T*T - .05481717*RH*RH + .00122874*T*T*RH + .00085282*T*RH*RH - .00000199*T*T*RH*RH
+	float heatIndex= -42.379 + (float)(2.04901523*temp_farenheight) + (float)(10.14333127*humidity) - (float)(.22475541*temp_farenheight*humidity) - 
+	(float)(.00683783*temp_farenheight*temp_farenheight) - (float)(.05481717*humidity*humidity) + (float)(.00122874*temp_farenheight*temp_farenheight*humidity) 
+	+ (float)(.00085282*temp_farenheight*humidity*humidity) - (float)(.00000199*temp_farenheight*temp_farenheight*humidity*humidity);
+	
+	float adjustment=0;
+	
+	if(humidity<13 && (temp_farenheight>80 && temp_farenheight<112) )
+	{
+		//if the RH is less than 13% and the temperature is between 80 and 112 
+		//ADJUSTMENT = [(13-RH)/4]*SQRT{[17-ABS(T-95.)]/17}
+		adjustment = ((13-humidity)/(float)4)*sqrt(17-std::abs((temp_farenheight-95.0)/(float)17));
+		heatIndex+=adjustment;
+	}
+	else if(humidity>85 && (temp_farenheight>80 && temp_farenheight<8) )
+	{	
+		//if the RH is greater than 85% and the temperature is between 80 and 87 degrees F, then the following adjustment is added to HI:
+		//ADJUSTMENT = [(RH-85)/10] * [(87-T)/5]
+		adjustment=(float)(((humidity-85)/10)*((87-temp_farenheight)/5));
+		heatIndex+=adjustment;
+	}
+	
+	
+	if(heatIndex<80)
+	{
+		//The Rothfusz regression is not appropriate when conditions of temperature and humidity warrant a heat index value below about 80 degrees F. 
+		//In those cases, a simpler formula is applied to calculate values consistent with Steadman's results:
+		//HI = 0.5 * {T + 61.0 + [(T-68.0)*1.2] + (RH*0.094)}
+		heatIndex= 0.5*(temp_farenheight + 61.0 + ((temp_farenheight-68.0)*1.2) + (humidity*0.094));
+	}
+	
+	
+	
+	printf("temp: %.2f humidity: %.2f heat index%.2f\n",temp_farenheight, humidity, heatIndex);
+	return heatIndex;
 }
 
 
