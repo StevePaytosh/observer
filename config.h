@@ -48,11 +48,13 @@
 #define SUBJECT "SunLab Observer -- TEST"
 #define BODY "This is a test email for the SunLab Observer"
 #define SEND_NOTIFICATIONS TRUE
+#define FOOTER "\n\n\nTo view up-to-date conditions in the SubLab. Please vist <a href=\"www.observer.gq\">SunLab Observer Online</a>"
+#define INCLUDE_FOOTER 1
 //minutes between emails that can be sent
 #define RELAPSE_TIME 2
-#define MAX_TEMP_CELCIUS 25
-#define MIN_TEMP_CELCIUS 25
-#define MAX_HEAT_INDEX 85
+#define MAX_TEMP_CELCIUS 15
+#define MIN_TEMP_CELCIUS 7.2
+#define MAX_HEAT_INDEX 70
 
 //SAVE FILES
 #define TEMP "/home/pi/Desktop/code/git/observer/data/test.dat"

@@ -146,6 +146,10 @@ float getHeatIndex(float temp_farenheight, float humidity);
 				<<std::setprecision(3)<<heat_index<<"<br>Current Temperature: " << sensor->getTempFarenheight()<<"&#176 F<br>Current Humidity: "
 				<<sensor->getHumidity()
 				<<"%<br><p>for more information of heat index <a href=\"http://www.nws.noaa.gov/om/heat/heat_index.shtml\">click here</a><p><img src=\"http://www.nws.noaa.gov/om/heat/heat-images/heatindexchart.png\">To view this image, download images for this email</img></body></html>";
+				
+					if(INCLUDE_FOOTER)
+					msg_body<<FOOTER;
+					
 				if(difftime(current,last_email)/60 > RELAPSE_TIME)
 				{
 					postman->send(SEND_TO, SUBJECT, msg_body.str());
@@ -160,7 +164,10 @@ float getHeatIndex(float temp_farenheight, float humidity);
 				std::time(&current);
 				std::ostringstream msg_body;
 				
-				msg_body<<"<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"red\\\">too hot</font></b><br><p>Current Temperature: "<<std::setprecision(3) << sensor->getTempFarenheight()<<"&#176 F<br>Current Humidity: "<<sensor->getHumidity()<<"%</body></html>";
+				msg_body<<"<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"red\\\">too hot</font></b><br><p>Current Temperature: "<<std::setprecision(3) << sensor->getTempFarenheight()<<"&#176; F<br>Current Humidity: "<<sensor->getHumidity()<<"%</body></html>";
+				
+				if(INCLUDE_FOOTER)
+					msg_body<<FOOTER;
 				if(difftime(current,last_email)/60 > RELAPSE_TIME)
 				{
 					postman->send(SEND_TO, SUBJECT, msg_body.str());
@@ -175,7 +182,9 @@ float getHeatIndex(float temp_farenheight, float humidity);
 				std::time(&current);
 				std::ostringstream msg_body;
 				
-				msg_body<<"<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"blue\\\">too cold</font></b><br><p>Current Temperature: "<<std::setprecision(3) << sensor->getTempFarenheight()<<"&#176 F<br>Current Humidity: "<<sensor->getHumidity()<<"%</body></html>";
+				msg_body<<"<html><body><b>The SunLab Observer has determined that it is <font size=\\\"3\\\" color=\\\"blue\\\">too cold</font></b><br><p>Current Temperature: "<<std::setprecision(3) << sensor->getTempFarenheight()<<"&#176; F<br>Current Humidity: "<<sensor->getHumidity()<<"%</body></html>";
+					if(INCLUDE_FOOTER)
+					msg_body<<FOOTER;
 				if(difftime(current,last_email)/60 > RELAPSE_TIME)
 				{
 					postman->send(SEND_TO, SUBJECT, msg_body.str());
