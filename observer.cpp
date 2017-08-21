@@ -57,9 +57,11 @@ float getHeatIndex(float temp_farenheight, float humidity);
 	
 	float temp=0; //sensor->getTempCelcius();
 	float humidity =0;// sensor -> getHumidity();
+	float heatIndex=0;
 	int res=0;
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
+	int readHeatIndex=0; //when this flag is high, print heat index instead of temperature
 	
 	while(1)
 	{
@@ -69,14 +71,15 @@ float getHeatIndex(float temp_farenheight, float humidity);
 				switch_lock=1;
 					
 				
-			if(display_state>2 || display_state<0)
+			if(display_state>3 || display_state<0)
 				display_state=0;
 				
 			switch(display_state)
 			{
-				case 0: useImperialUnits=1; readHumidity=0; break;
-				case 1: useImperialUnits=0; readHumidity=0; break;
-				case 2: useImperialUnits=0; readHumidity=1; break;
+				case 0: useImperialUnits=1; readHumidity=0; readHeatIndex=0; break;
+				case 1: useImperialUnits=0; readHumidity=0; readHeatIndex=0; break;
+				case 2: useImperialUnits=0; readHumidity=1; readHeatIndex=0;break;
+				case 3: useImperialUnits=0; readHumidity=0; readHeatIndex=1; break;
 			}
 		
 		}
@@ -92,7 +95,7 @@ float getHeatIndex(float temp_farenheight, float humidity);
 			
 		
 	
-		if(!readHumidity)
+		if(!readHumidity && !readHeatIndex)
 		{
 			//display temperature
 			if(useImperialUnits)
@@ -113,7 +116,7 @@ float getHeatIndex(float temp_farenheight, float humidity);
 				blue->turn_on();
 			}
 		}
-		else
+		else if (readHumidity)
 		{
 			humidity = sensor->getHumidity();
 			left -> display(humidity/10);
@@ -122,7 +125,16 @@ float getHeatIndex(float temp_farenheight, float humidity);
 			red->turn_on();
 			blue->turn_on();	
 			
-		}	
+		}
+		else
+		{
+			//display heat index	
+			heatIndex= getHeatIndex(sensor->getTempFarenheight(),sensor->getHumidity());
+			left -> display(heatIndex/10);
+			right -> display ((int)humidity%10);
+			
+			red->turn_off();
+			blue->turn_off();
 		
 		}
 		
@@ -198,7 +210,7 @@ float getHeatIndex(float temp_farenheight, float humidity);
 
 	}
 }
-
+}
 
 void diagnostic( gumdrop *a, gumdrop *b, seg_display *l, seg_display *r)
 {
