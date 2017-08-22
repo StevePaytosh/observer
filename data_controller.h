@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <ctime>
 #include <sstream>
+#include <algorithm>
 
 class data_controller
 {

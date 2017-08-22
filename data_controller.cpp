@@ -70,11 +70,12 @@ int data_controller::read()
 int data_controller::create_csv(std::string pathRoot)
 {
 	std::ofstream output;
-	output.open(pathRoot.c_str(), std::ofstream::app);
-	std::string table="time,temp,humidity,\n";
+	output.open(pathRoot.c_str(), std::ios::binary);
+	std::string table="time,temp,humidity\n";
 		
 	in.open(file_path.c_str(), std::ios::binary|std::ios::in);
-	output.write(table.c_str(),sizeof(table));
+	//output.write(table.c_str());
+	output<<table.c_str();
 	
 	long long int read_time;
 	float read_temp;
@@ -99,11 +100,11 @@ int data_controller::create_csv(std::string pathRoot)
 			temp_buff<<read_temp;
 			std::ostringstream hum_buff;
 			hum_buff<<read_humidity;
-			
-		//printf("%s%.2f*c\n%.2f%\n\n", asctime(localtime(&a)), read_temp, read_humidity);
+	
 		std::string asc_str = asctime(localtime ( &a ));
+		std::replace(asc_str.begin(),asc_str.end(),'\n',' ');
 		table=asc_str+","+temp_buff.str()+","+hum_buff.str()+"\n";
-		output.write(table.c_str(),sizeof(table));
+		output<<table.c_str();
 	}
 	
 	in.close();
