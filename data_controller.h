@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <ctime>
+#include <sstream>
 
 class data_controller
 {
@@ -22,6 +23,7 @@ class data_controller
 	int store();
 	int read();
 	int update(float temp, float humidity);
+	int create_csv(std::string pathRoot);
 	long long int lastSampleTime();
 	
 	private:
