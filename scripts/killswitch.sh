@@ -1,3 +1,3 @@
 #!/bin/bash
 sudo killall ../observer
-shutdown now
+sudo shutdown now
