@@ -1,5 +1,5 @@
 /* 
- * Observers primary function will be to monitor
+ * Observer's primary function will be to monitor
  * tempeture conditions in a room, display that data to
  * a screen and store that data in a database.
  * 
@@ -7,7 +7,7 @@
  * The program is intended to be run on a raspberry pi or similar microcontroller
  * 
  * When tempetures exceed a minimum threshold, the program
- * should send out an email to relevant parties the room has become to
+ * should send out an email to relevant parties indicating that the room has become to
  * hot. The email should be repeated only once per hour while the room
  * is still too hot.
  * 
@@ -53,7 +53,12 @@ float getHeatIndex(float temp_farenheight, float humidity);
 	time_t last_email;
 	
 	std::time(&last_email);
-	diagnostic(red,blue,left,right);
+	
+	if(RUN_DIAGNOSTIC)
+	{
+		diagnostic(red,blue,left,right);
+	}
+	
 	
 	float temp=0; //sensor->getTempCelcius();
 	float humidity =0;// sensor -> getHumidity();
@@ -62,6 +67,7 @@ float getHeatIndex(float temp_farenheight, float humidity);
 	int useImperialUnits = 1;
 	int readHumidity=0; // when this flag is high, print the humidity instead of the temperature
 	int readHeatIndex=0; //when this flag is high, print heat index instead of temperature
+	int switch_count=0;
 	
 	while(1)
 	{
@@ -86,7 +92,38 @@ float getHeatIndex(float temp_farenheight, float humidity);
 		else if(!tc->getState())
 			switch_lock=0;
 			
+		if(tc->getState())
+		{
+			switch_count++;
+			
+		}	
+		else
+		{
+			switch_count =0;
+		}
+		
+		if(switch_count > 250 && KILLSWITCH_ENABLED)
+		{
+			switch_count=0;
+			int kill_counter=15;
+			while(tc->getState())
+			{
+				left->display(kill_counter/10);
+				right->display((int)(kill_counter%10));
+				delay(1000);
 				
+				if(kill_counter==0)
+				{
+					left->clear_all();
+					right->clear_all();
+					system("/home/pi/Desktop/code/git/observer/killswitch.sh");
+				}
+				else
+				{
+					kill_counter--;
+				}
+			}
+		}
 		
 		if(sensor->read())
 		{
