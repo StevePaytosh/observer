@@ -116,7 +116,7 @@ float getHeatIndex(float temp_farenheight, float humidity);
 				{
 					left->clear_all();
 					right->clear_all();
-					system("/home/pi/Desktop/code/git/observer/killswitch.sh");
+					system("/home/pi/Desktop/code/git/observer/scripts/killswitch.sh");
 				}
 				else
 				{
